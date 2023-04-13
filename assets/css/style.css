@@ -95,10 +95,13 @@ body {
 .answers {
   text-align: left;
   border: 3px solid black;
+  color: white;
   width: 100%;
   margin-top: 2%;
 }
-/* .answer1, .answer2, .answer3, .answer4 {
-  display:block;
-} */
+.answer1, .answer2, .answer3, .answer4 {
+  line-height: 3rem;
+  background-color: purple;
+  border: 2px solid white;
+}
 
