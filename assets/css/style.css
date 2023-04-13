@@ -63,10 +63,9 @@ body {
   width:100%;
   height: 3rem;
   border-radius: 100px;
-
 }
 
-/* #question {
-  display: none;
-} */
+.answerList > li {
+  background-color: purple;
+}
 
