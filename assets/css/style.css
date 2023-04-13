@@ -34,6 +34,10 @@ body {
   margin-top: 5%;
 }
 
+#home.hide {
+  display: none;
+}
+
 .title {
   display: flex;
   justify-content: center;
@@ -68,4 +72,33 @@ body {
 .answerList > li {
   background-color: purple;
 }
+
+#question {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top:5%;
+}
+
+#question.hide {
+  display: none;
+}
+
+.displayQuestion {
+  display: block;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.answers {
+  text-align: left;
+  border: 3px solid black;
+  width: 100%;
+  margin-top: 2%;
+}
+/* .answer1, .answer2, .answer3, .answer4 {
+  display:block;
+} */
 
