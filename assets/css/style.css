@@ -25,6 +25,18 @@ body {
   justify-content: flex-end;
 }
 
+.time > * {
+  color: purple;
+}
+
+.time > p {
+  color: purple;
+}
+
+.time.hide {
+  display: none;
+}
+
 #home {
   display: flex;
   justify-content: center;
@@ -108,3 +120,6 @@ body {
   border-radius: 25px;
 }
 
+#scorePage.hide {
+  display: none;
+}
