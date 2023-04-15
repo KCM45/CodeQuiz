@@ -57,7 +57,7 @@ function endGame() {
   document.querySelector(".displayScore").textContent = score;
 
   // Hide timer
-  document.querySelector(".time").setAttribute("class", "hide");
+  document.querySelector(".time").setAttribute("class", "time hide");
 
   // Clear timer
   clearInterval()

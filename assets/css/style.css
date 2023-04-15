@@ -23,15 +23,8 @@ body {
 
 .time {
   justify-content: flex-end;
-}
-
-.time > * {
   color: purple;
-}
-
-.time > p {
-  color: purple;
-}
+} 
 
 .time.hide {
   display: none;
@@ -121,5 +114,45 @@ body {
 }
 
 #scorePage.hide {
+  display: none;
+}
+
+.answer1:hover {
+  background-color: rgb(78, 65, 78);
+}
+
+.answer2:hover {
+  background-color: rgb(78, 65, 78);
+}
+
+.answer3:hover {
+  background-color: rgb(78, 65, 78);
+}
+
+.answer4:hover {
+  background-color: rgb(78, 65, 78);
+}
+
+#scorePage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5%;
+}
+
+.allDone {
+  font-size: 3rem;
+}
+
+.allDone > div {
+  font-size: 1.5rem;
+}
+
+.displayScore {
+  font-size: 1.5rem;
+}
+
+.time.hide {
   display: none;
 }
