@@ -43,13 +43,13 @@ body {
   display: none;
 }
 
-.title {
+head > .title {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.title > h1 {
+head > .title > h1 {
   font-size: 3rem;
 }
 
@@ -155,4 +155,51 @@ body {
 
 .time.hide {
   display: none;
+}
+
+.scoreSubmit {
+  margin-left: 15px;
+}
+
+.finalScore {
+  margin-top: 2%;
+}
+
+.enterInitials {
+  margin-top: 2%;
+}
+
+#highScores.hide {
+  display: none;
+}
+
+#highScores {
+  display: flex;
+  margin-top: 5%;
+  justify-content: center;
+  flex-direction: column;;
+}
+
+#highScores > .title {
+  font-size: 3rem;
+  color: purple;
+  text-align: center;
+}
+
+.buttons {
+  margin-top: 2rem;
+}
+
+#goBack, #clearScores {
+  background-color: purple;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 100px;
+}
+
+#highScores > .scores {
+  font-size: 2rem;
+  color: purple;
+  background-color: rgb(239, 206, 239);
+  margin-top: 2rem;
 }

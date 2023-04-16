@@ -6,7 +6,15 @@ let interval;
 let questionNum = 0;
 let score = 0;
 
+let initals = "";
+
+let scoreArray = JSON.parse(localStorage.getItem("scores"));
+
 document.querySelector(".displayScore").textContent = score;
+
+// Display top scores
+// if()
+// document.querySelector(".score1").textContent = scoreArray[0];
 
 // Create an array of questions
 let questions = [
@@ -52,6 +60,7 @@ function endGame() {
 
   // Show Score page
   document.getElementById("scorePage").removeAttribute("class", "hide");
+  document.querySelector("#highScores").removeAttribute("class", "hide");
 
   // Display score
   document.querySelector(".displayScore").textContent = score;
@@ -59,8 +68,11 @@ function endGame() {
   // Hide timer
   document.querySelector(".time").setAttribute("class", "time hide");
 
+  // Display high scores
+  displayHighScore();
+
   // Clear timer
-  clearInterval()
+  clearInterval();
 }
 
 let startQuiz = () => {
@@ -92,7 +104,7 @@ function wait(ms){
 function checkAnswer() {
   // Checkif answer is correct
   document.querySelector(".response").innerHTML = "";
-  wait(1000);
+  wait(100);
   if(this.textContent === questions[questionNum]["answer"]) {
     // Increment score and move on to next question
     document.querySelector(".response").innerHTML = "Right!"
@@ -108,10 +120,76 @@ function checkAnswer() {
 
 function subtractTime() {
   time -= 15;
+  score -= 2;
 }
 
 function updateScore() {
-  score++;
+  score += 10;
+}
+
+function storeScore() {
+
+  // Show HTML to user
+  document.querySelector("#highScores").removeAttribute("class", "hide")
+
+  console.log("storesScores");
+  if(localStorage.getItem("scores") == null) {
+    localStorage.setItem("scores", "[]");
+  }
+  let initials = document.querySelector("#initialsInput").value;
+  newScore = [score, initials.substring(0, 3)];
+  
+  let oldScore = JSON.parse(localStorage.getItem("scores"));
+
+  oldScore.push(newScore);
+
+  // Sort top scores and only return top 5
+  let sortedScore = sortScore(oldScore);
+
+  // Store in localStorage
+  localStorage.setItem("scores", JSON.stringify(sortedScore));
+
+  displayHighScore();
+}
+
+function displayHighScore() {
+  // display list of high scores
+
+  let scores = JSON.parse(localStorage.getItem("scores"));
+
+  // Display each high score with initials
+  for(let i=0; i < scores.length; i++) {
+    let tag = ".score" + (i+1).toString()
+    document.querySelector(tag).textContent = (i+1).toString() + "." + "  " + scores[i][1] + " " + scores[i][0]
+  }
+}
+
+function sortScore(score) {
+  // sort score array and keeep top 5 scores
+
+  score.sort(function(a, b) {
+    return b[0] - a[0]; //|| a[1] - b[1]
+  })
+  score.sort(function(a, b) {
+    return a[1].toUpperCase().localeCompare(b[1].toUpperCase());
+  })
+  return score.slice(0, 5);
+  
+}
+
+function endGameLink() {
+  // if someone hits the viewhigh scores link:
+  endGame();
+
+  // Hide Home page
+  document.querySelector("#home").setAttribute("class", "hide");
+
+  // Hide entry for initials
+  document.querySelector("#scorePage").setAttribute("class", "hide");
+}
+
+function clearScores(){
+  localStorage.removeItem("scores");
 }
 // Create a listener for when the start button is clicked
 document.getElementById("startQuiz").addEventListener("click", startQuiz);
@@ -122,5 +200,13 @@ document.querySelector(".answer2").addEventListener("click", checkAnswer);
 document.querySelector(".answer3").addEventListener("click", checkAnswer);
 document.querySelector(".answer4").addEventListener("click", checkAnswer);
 
+// Create and event listener for when the initals submit button is clicked
+document.querySelector("#scoreSubmit").addEventListener("click", storeScore);
+
+// View high scores
+document.querySelector(".highScores").addEventListener("click", endGameLink);
+
+// Clear scores
+document.querySelector("#clearScores").addEventListener("click", clearScores);
 
 
