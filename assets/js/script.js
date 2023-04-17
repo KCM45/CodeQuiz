@@ -55,6 +55,9 @@ let loadQuestion = () => {
 }
 
 function endGame() {
+  clearInterval(time);
+
+
   // Hide question page
   document.getElementById("question").setAttribute("class", "hide");
 
@@ -76,7 +79,8 @@ function endGame() {
 }
 
 let startQuiz = () => {
-  document.querySelector("#home").setAttribute("class", "hide");
+  hideHomePage();
+  showQuestion();
   document.querySelector("#question").removeAttribute("class", "hide");
   interval = setInterval(myTimer, 1000);
   displayTime.textContent = time;
@@ -127,12 +131,21 @@ function updateScore() {
   score += 10;
 }
 
+function hideScorePage() {
+  document.querySelector("#scorePage").setAttribute("class", "high");
+}
+
+function resetQuestionNum() {
+  questionNum = 0;
+}
+
 function storeScore() {
+  // Hide end game page
+  hideScorePage();
 
   // Show HTML to user
   document.querySelector("#highScores").removeAttribute("class", "hide")
 
-  console.log("storesScores");
   if(localStorage.getItem("scores") == null) {
     localStorage.setItem("scores", "[]");
   }
@@ -180,6 +193,8 @@ function sortScore(score) {
 function endGameLink() {
   // if someone hits the viewhigh scores link:
   endGame();
+  clearInterval(interval);
+  time = 100;
 
   // Hide Home page
   document.querySelector("#home").setAttribute("class", "hide");
@@ -190,7 +205,60 @@ function endGameLink() {
 
 function clearScores(){
   localStorage.removeItem("scores");
+  document.querySelector(".scores").innerHTML = "";
 }
+
+function hideHighScores() {
+  // Hide hish higch score page
+  document.querySelector("#highScores").setAttribute("class", "hide");
+}
+
+function hideScorePage() {
+  document.querySelector("#scorePage").setAttribute("class", "hide");
+}
+
+function goBack() {
+  time = 100;
+  clearInterval(interval);
+  // return to first page 
+  hideScorePage();
+  showHomePage();
+  hideHighScores();
+  hideQuestion();
+
+  // Show timer
+  document.querySelector(".time").setAttribute("class", "time");
+
+
+}
+
+
+
+function hideQuestion() {
+  document.querySelector("#question").setAttribute("class", "hide");
+}
+
+function showQuestion() {
+  document.querySelector("#question").removeAttribute("class", "hide");
+  hideHighScores();
+  hideHomePage();
+  hideQuestion();
+  hideScorePage();
+}
+
+function showHomePage() {
+  resetQuestionNum();
+  console.log(questionNum);
+  document.querySelector("#home").removeAttribute("class", "hide");
+  hideHighScores();
+  hideQuestion();
+  hideScorePage();
+}
+
+function hideHomePage() {
+  document.querySelector("#home").setAttribute("class", "hide");
+}
+
 // Create a listener for when the start button is clicked
 document.getElementById("startQuiz").addEventListener("click", startQuiz);
 
@@ -208,5 +276,8 @@ document.querySelector(".highScores").addEventListener("click", endGameLink);
 
 // Clear scores
 document.querySelector("#clearScores").addEventListener("click", clearScores);
+
+// Restart quiz
+document.querySelector("#goBack").addEventListener("click", goBack);
 
 
