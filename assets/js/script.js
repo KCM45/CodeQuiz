@@ -55,7 +55,7 @@ let loadQuestion = () => {
 }
 
 function endGame() {
-  clearInterval(time);
+  clearInterval(interval);
 
 
   // Hide question page
@@ -158,7 +158,6 @@ function storeScore() {
 
   // Sort top scores and only return top 5
   let sortedScore = sortScore(oldScore);
-
   // Store in localStorage
   localStorage.setItem("scores", JSON.stringify(sortedScore));
 
@@ -180,14 +179,10 @@ function displayHighScore() {
 function sortScore(score) {
   // sort score array and keeep top 5 scores
 
-  score.sort(function(a, b) {
-    return b[0] - a[0]; //|| a[1] - b[1]
-  })
-  score.sort(function(a, b) {
-    return a[1].toUpperCase().localeCompare(b[1].toUpperCase());
+  score = score.sort(function(a, b) {
+    return b[0] - a[0] || a[1].toUpperCase().localeCompare(b[1].toUpperCase())
   })
   return score.slice(0, 5);
-  
 }
 
 function endGameLink() {
@@ -195,17 +190,22 @@ function endGameLink() {
   endGame();
   clearInterval(interval);
   time = 100;
+  score = 0;
 
   // Hide Home page
-  document.querySelector("#home").setAttribute("class", "hide");
-
+  hideHomePage();
   // Hide entry for initials
-  document.querySelector("#scorePage").setAttribute("class", "hide");
+  hideScorePage();
 }
 
 function clearScores(){
   localStorage.removeItem("scores");
-  document.querySelector(".scores").innerHTML = "";
+
+  // Remove the displayed scores
+  document.querySelectorAll(".scores").forEach((scoreElement) => {
+    scoreElement.innerHTML = "";
+  })
+  hideScorePage();
 }
 
 function hideHighScores() {
@@ -220,6 +220,8 @@ function hideScorePage() {
 function goBack() {
   time = 100;
   clearInterval(interval);
+  displayTime.textContent = time;
+
   // return to first page 
   hideScorePage();
   showHomePage();
@@ -231,8 +233,6 @@ function goBack() {
 
 
 }
-
-
 
 function hideQuestion() {
   document.querySelector("#question").setAttribute("class", "hide");
@@ -248,7 +248,7 @@ function showQuestion() {
 
 function showHomePage() {
   resetQuestionNum();
-  console.log(questionNum);
+  score = 0;
   document.querySelector("#home").removeAttribute("class", "hide");
   hideHighScores();
   hideQuestion();

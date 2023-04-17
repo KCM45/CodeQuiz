@@ -141,6 +141,10 @@ head > .title > h1 {
   margin-top: 5%;
 }
 
+#scorePage.hide{
+  display: none;
+}
+
 .allDone {
   font-size: 3rem;
 }
